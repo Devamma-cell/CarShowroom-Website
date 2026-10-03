@@ -1,0 +1,4 @@
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("togglePassword").addEventListener("click", () => { const p = document.getElementById("loginPassword"); p.type = p.type === "password" ? "text" : "password" });
+    document.getElementById("loginForm").addEventListener("submit", e => { e.preventDefault(); const email = document.getElementById("loginEmail").value, password = document.getElementById("loginPassword").value; if (email === "admin@veloramotors.com" && password === "admin123") { sessionStorage.setItem("veloraAdmin", "true"); location.href = "admin.html" } else showToast("Invalid Credentials") });
+});

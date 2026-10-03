@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Velora Motors</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .admin-topbar {
+    height: 70px;
+    background: #111827;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-brand a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.admin-label {
+    font-size: 11px;
+    color: #9ca3af;
+    letter-spacing: 1.5px;
+    border-left: 1px solid #374151;
+    padding-left: 15px;
+}
+
+.logo-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: #dc2626;
+    border-radius: 8px;
+    margin-right: 8px;
+}
+
+.admin-user-area {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.admin-user-name {
+    color: #d1d5db;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .admin-topbar {
+        padding: 0 15px;
+    }
+
+    .admin-label,
+    .admin-user-name {
+        display: none;
+    }
+}
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .admin-sidebar a {
+            cursor: pointer;
+        }
+
+        .admin-sidebar a.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .action-buttons {
+            white-space: nowrap;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #777;
+        }
+
+        .message-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .category-card,
+        .brand-admin-card {
+            border: 1px solid #eee;
+            border-radius: 14px;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .admin-table-img {
+            width: 60px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .status-badge {
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-available,
+        .status-confirmed,
+        .status-read {
+            background: #dff7e8;
+            color: #16743b;
+        }
+
+        .status-sold,
+        .status-pending,
+        .status-unread {
+            background: #fff0d5;
+            color: #946200;
+        }
+
+        .sidebar-title {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body class="admin-body">
+
+    <!-- NAVBAR -->
+  <nav class="admin-topbar">
+    <div class="admin-brand">
+        <a href="index.html">
+            <span class="logo-mark">V</span>
+            Velora Motors
+        </a>
+        <span class="admin-label">ADMIN PANEL</span>
+    </div>
+
+    <div class="admin-user-area">
+        <span class="admin-user-name">
+            <i class="bi bi-person-circle"></i>
+            Administrator
+        </span>
+
+        <button type="button" class="btn btn-danger btn-sm" id="logoutBtn">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+        </button>
+    </div>
+</nav>
+
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+
+            <div class="sidebar-title">MENU</div>
+
+            <a class="admin-menu active" data-section="dashboard">
+                <i class="bi bi-grid"></i>
+                Dashboard
+            </a>
+
+            <a class="admin-menu" data-section="vehicles">
+                <i class="bi bi-car-front"></i>
+                Vehicles
+            </a>
+
+            <a class="admin-menu" data-section="brands">
+                <i class="bi bi-award"></i>
+                Brands
+            </a>
+
+            <a class="admin-menu" data-section="categories">
+                <i class="bi bi-tags"></i>
+                Categories
+            </a>
+
+            <a class="admin-menu" data-section="bookings">
+                <i class="bi bi-calendar-check"></i>
+                Test Drives
+            </a>
+
+            <a class="admin-menu" data-section="messages">
+                <i class="bi bi-chat"></i>
+                Messages
+            </a>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-content">
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section id="dashboard" class="admin-section active">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <span class="section-kicker">OVERVIEW</span>
+                        <h1 class="mb-0">Dashboard</h1>
+                    </div>
+
+                    <button class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#vehicleModal">
+                        <i class="bi bi-plus-lg"></i>
+                        Add Vehicle
+                    </button>
+                </div>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-3">
+                        <div class="admin-stat">
+                            <span>Total Vehicles</span>
+                            <strong id="adminVehicleCount">0</strong>
+                            <i class="bi bi-car-front"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="admin-stat">
+                            <span>Brands</span>
+                            <strong id="adminBrandCount">0</strong>
+                            <i class="bi bi-award"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="admin-stat">
+                            <span>Test Drives</span>
+                            <strong id="adminBookingCount">0</strong>
+                            <i class="bi bi-calendar2-check"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="admin-stat">
+                            <span>Messages</span>
+                            <strong id="adminMessageCount">0</strong>
+                            <i class="bi bi-chat-left-text"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="admin-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h4>Vehicle Management</h4>
+                            <p>Manage your showroom inventory.</p>
+                        </div>
+
+                        <input
+                            class="form-control admin-search"
+                            id="adminSearch"
+                            placeholder="Search vehicles...">
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Brand</th>
+                                    <th>Category</th>
+                                    <th>Fuel</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="adminVehicleTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div class="row g-4 mt-1">
+
+                    <div class="col-lg-6">
+
+                        <div class="admin-panel">
+
+                            <div class="panel-header">
+                                <div>
+                                    <h4>Recent Test Drives</h4>
+                                    <p>Latest customer bookings.</p>
+                                </div>
+                            </div>
+
+                            <div id="bookingList"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+
+                        <div class="admin-panel">
+
+                            <div class="panel-header">
+                                <div>
+                                    <h4>Inventory by Category</h4>
+                                    <p>Current vehicle distribution.</p>
+                                </div>
+                            </div>
+
+                            <div id="categoryBars"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= VEHICLES ================= -->
+
+            <section id="vehicles" class="admin-section">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <span class="section-kicker">INVENTORY</span>
+                        <h1>Vehicles</h1>
+                    </div>
+
+                    <button class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#vehicleModal">
+                        <i class="bi bi-plus-lg"></i>
+                        Add Vehicle
+                    </button>
+
+                </div>
+
+                <div class="admin-panel">
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Vehicle</th>
+                                    <th>Brand</th>
+                                    <th>Category</th>
+                                    <th>Fuel</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="vehicleManagementTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= BRANDS ================= -->
+
+            <section id="brands" class="admin-section">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <span class="section-kicker">MANAGEMENT</span>
+                        <h1>Brands</h1>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="addBrand()">
+                        <i class="bi bi-plus-lg"></i>
+                        Add Brand
+                    </button>
+
+                </div>
+
+                <div class="row g-4" id="brandList"></div>
+
+            </section>
+
+
+            <!-- ================= CATEGORIES ================= -->
+
+            <section id="categories" class="admin-section">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <span class="section-kicker">INVENTORY</span>
+                        <h1>Categories</h1>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="addCategory()">
+                        <i class="bi bi-plus-lg"></i>
+                        Add Category
+                    </button>
+
+                </div>
+
+                <div class="row g-4" id="categoryList"></div>
+
+            </section>
+
+
+            <!-- ================= TEST DRIVES ================= -->
+
+            <section id="bookings" class="admin-section">
+
+                <div class="mb-4">
+                    <span class="section-kicker">CUSTOMERS</span>
+                    <h1>Test Drives</h1>
+                </div>
+
+                <div class="admin-panel">
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Vehicle</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="bookingTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= MESSAGES ================= -->
+
+            <section id="messages" class="admin-section">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <span class="section-kicker">CUSTOMERS</span>
+                        <h1>Messages</h1>
+                    </div>
+
+                </div>
+
+                <div class="admin-panel">
+
+                    <div id="messageList"></div>
+
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+
+    <!-- ================= ADD VEHICLE MODAL ================= -->
+
+    <div class="modal fade" id="vehicleModal" tabindex="-1">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5>Add Vehicle</h5>
+
+                    <button
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <form id="addVehicleForm">
+
+                    <div class="modal-body row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Model
+                            </label>
+
+                            <input
+                                name="name"
+                                class="form-control"
+                                required
+                                placeholder="e.g. BMW X5">
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Brand
+                            </label>
+
+                            <select
+                                name="brand"
+                                class="form-select"
+                                id="adminBrandSelect">
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Category
+                            </label>
+
+                            <select
+                                name="category"
+                                class="form-select">
+
+                                <option>SUV</option>
+                                <option>Sedan</option>
+                                <option>Hatchback</option>
+                                <option>Coupe</option>
+                                <option>Electric</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Fuel
+                            </label>
+
+                            <select
+                                name="fuel"
+                                class="form-select">
+
+                                <option>Petrol</option>
+                                <option>Diesel</option>
+                                <option>Electric</option>
+                                <option>Hybrid</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Price (₹ Lakh)
+                            </label>
+
+                            <input
+                                name="price"
+                                type="number"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Image URL
+                            </label>
+
+                            <input
+                                name="image"
+                                class="form-control"
+                                placeholder="https://...">
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button
+                            type="button"
+                            class="btn btn-light"
+                            data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-primary">
+                            Add Vehicle
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div id="toastMount"></div>
+
+
+    <!-- SCRIPTS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>

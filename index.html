@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velora Motors | Premium Car Showroom</title>
+  <meta name="description" content="Velora Motors premium car showroom frontend with vehicle search, offers, services and test-drive booking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="navbar"></div>
+
+<main>
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center min-vh-75">
+        <div class="col-lg-7">
+          <span class="eyebrow"><i class="bi bi-stars"></i> DRIVE THE EXTRAORDINARY</span>
+          <h1>Find a car that feels <span>made for you.</span></h1>
+          <p class="hero-copy">Explore premium new and pre-owned vehicles, curated offers and a showroom experience designed around you.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="cars.html" class="btn btn-primary btn-lg">Explore Cars <i class="bi bi-arrow-right"></i></a>
+            <button class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#testDriveModal">Book a Test Drive</button>
+          </div>
+          <div class="hero-stats row g-3 mt-4">
+            <div class="col-4"><strong>250+</strong><small>Vehicles</small></div>
+            <div class="col-4"><strong>30+</strong><small>Premium Brands</small></div>
+            <div class="col-4"><strong>12K+</strong><small>Happy Customers</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="search-panel-wrap">
+    <div class="container">
+      <div class="search-panel">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div><span class="section-kicker">QUICK SEARCH</span><h3 class="mb-0">What are you looking for?</h3></div>
+          <a href="cars.html" class="text-link">Advanced Search <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <form class="row g-3" id="quickSearchForm">
+          <div class="col-md-3">
+            <label class="form-label">Brand</label>
+            <select class="form-select" id="quickBrand"><option value="">All Brands</option></select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" id="quickCategory"><option value="">All Categories</option></select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Budget</label>
+            <select class="form-select" id="quickBudget">
+              <option value="">Any Budget</option><option value="under20">Under ₹20 Lakh</option><option value="20to40">₹20–40 Lakh</option><option value="40to70">₹40–70 Lakh</option><option value="over70">Above ₹70 Lakh</option>
+            </select>
+          </div>
+          <div class="col-md-3 d-flex align-items-end"><button class="btn btn-dark w-100" type="submit">Search Vehicles <i class="bi bi-search ms-1"></i></button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-heading">
+        <div><span class="section-kicker">FEATURED INVENTORY</span><h2>Drive something remarkable.</h2></div>
+        <a href="cars.html" class="text-link">View all cars <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="row g-4" id="featuredCars"></div>
+    </div>
+  </section>
+
+  <section class="dark-section section-padding">
+    <div class="container">
+      <div class="section-heading light">
+        <div><span class="section-kicker">SHOP BY BRAND</span><h2>Names you know. Cars you'll love.</h2></div>
+        <a href="brands.html" class="text-link">All brands <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="row g-3" id="brandGrid"></div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-light-subtle">
+    <div class="container">
+      <div class="section-heading"><div><span class="section-kicker">WHY VELORA</span><h2>A showroom built around your journey.</h2></div></div>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="feature-card"><div class="icon-box"><i class="bi bi-patch-check"></i></div><h4>Verified Vehicles</h4><p>Every pre-owned vehicle goes through a detailed inspection and documentation check.</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><div class="icon-box"><i class="bi bi-wallet2"></i></div><h4>Flexible Finance</h4><p>Explore tailored finance, exchange and ownership solutions with transparent pricing.</p></div></div>
+        <div class="col-md-4"><div class="feature-card"><div class="icon-box"><i class="bi bi-headset"></i></div><h4>Personal Assistance</h4><p>From selection to delivery and after-sales care, our team stays with you.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="promo-banner">
+    <div class="container">
+      <div class="promo-inner">
+        <div><span class="section-kicker">THIS MONTH</span><h2>Upgrade your drive with exclusive offers.</h2><p>Exchange bonuses, finance benefits and selected model offers are waiting.</p></div>
+        <a href="offers.html" class="btn btn-light btn-lg">Explore Offers</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+<div id="testDriveMount"></div>
+<div id="toastMount"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
